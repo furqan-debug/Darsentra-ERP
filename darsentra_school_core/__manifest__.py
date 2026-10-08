@@ -25,7 +25,13 @@
         'views/school_menu_views.xml',
         'views/landing_page_views.xml',
         'views/school_onboarding_views.xml',
+        'views/auth_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            '/darsentra_school_core/static/src/scss/backend_theme.scss',
+        ],
+    },
     'installable': True,
     'application': True,
     'auto_install': False,

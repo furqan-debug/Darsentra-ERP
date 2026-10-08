@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Modern SaaS Authentication Layout Override -->
+    <template id="darsentra_website_login_layout" inherit_id="website.login_layout" priority="30" name="Darsentra Modern SaaS Auth Layout">
+        <xpath expr="//t[@t-call='website.layout']" position="replace">
+            <t t-call="web.frontend_layout">
+                <t t-set="no_header" t-value="True"/>
+                <t t-set="no_footer" t-value="True"/>
+
+                <style>
+                    :root {
+                        --ds-slate-900: #0f172a;
+                        --ds-slate-800: #1e293b;
+                        --ds-slate-700: #334155;
+                        --ds-slate-600: #475569;
+                        --ds-slate-500: #64748b;
+                        --ds-slate-200: #e2e8f0;
+                        --ds-slate-100: #f1f5f9;
+                        --ds-slate-50: #f8fafc;
+                        --ds-emerald: #047857;
+                    }
+
+                    body {
+                        background-color: var(--ds-slate-50) !important;
+                        font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif !important;
+                        color: var(--ds-slate-900) !important;
+                        -webkit-font-smoothing: antialiased;
+                    }
+
+                    .ds-auth-wrapper {
+                        min-height: 100vh;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 32px 16px;
+                    }
+
+                    .ds-auth-card {
+                        background: #ffffff;
+                        border: 1px solid var(--ds-slate-200);
+                        border-radius: 8px;
+                        box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+                        max-width: 420px;
+                        width: 100%;
+                        padding: 36px 32px;
+                    }
+
+                    .ds-auth-brand {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        text-decoration: none;
+                    }
+
+                    .ds-auth-title {
+                        font-size: 1.125rem;
+                        font-weight: 700;
+                        letter-spacing: -0.025em;
+                        color: var(--ds-slate-900);
+                    }
+
+                    .ds-auth-tag {
+                        font-size: 0.6875rem;
+                        font-weight: 600;
+                        background: var(--ds-slate-100);
+                        color: var(--ds-slate-600);
+                        border: 1px solid var(--ds-slate-200);
+                        padding: 2px 6px;
+                        border-radius: 4px;
+                    }
+
+                    .ds-auth-subtitle {
+                        font-size: 0.8125rem;
+                        color: var(--ds-slate-500);
+                        margin-top: 4px;
+                    }
+
+                    /* Input and form styling */
+                    .form-label {
+                        font-size: 0.8125rem !important;
+                        font-weight: 600 !important;
+                        color: var(--ds-slate-700) !important;
+                        margin-bottom: 5px !important;
+                    }
+
+                    .form-control {
+                        border-radius: 6px !important;
+                        border: 1px solid #cbd5e1 !important;
+                        padding: 9px 12px !important;
+                        font-size: 0.9375rem !important;
+                        color: var(--ds-slate-900) !important;
+                        background-color: #ffffff !important;
+                        transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+                    }
+
+                    .form-control:focus {
+                        border-color: var(--ds-slate-900) !important;
+                        box-shadow: 0 0 0 1px var(--ds-slate-900) !important;
+                        outline: none !important;
+                    }
+
+                    .btn-primary {
+                        background-color: var(--ds-slate-900) !important;
+                        border-color: var(--ds-slate-900) !important;
+                        color: #ffffff !important;
+                        border-radius: 6px !important;
+                        padding: 10px 18px !important;
+                        font-weight: 500 !important;
+                        font-size: 0.9375rem !important;
+                        width: 100% !important;
+                        transition: background-color 0.15s ease !important;
+                    }
+
+                    .btn-primary:hover {
+                        background-color: var(--ds-slate-800) !important;
+                        border-color: var(--ds-slate-800) !important;
+                    }
+
+                    .btn-link {
+                        color: var(--ds-emerald) !important;
+                        text-decoration: none !important;
+                        font-weight: 500 !important;
+                        font-size: 0.8125rem !important;
+                    }
+
+                    .btn-link:hover {
+                        color: #065f46 !important;
+                        text-decoration: underline !important;
+                    }
+
+                    .o_login_auth {
+                        display: none !important;
+                    }
+
+                    /* Card footer */
+                    .ds-auth-footer {
+                        border-top: 1px solid var(--ds-slate-100);
+                        margin-top: 24px;
+                        padding-top: 16px;
+                        text-align: center;
+                        font-size: 0.75rem;
+                        color: var(--ds-slate-400);
+                    }
+                </style>
+
+                <div class="ds-auth-wrapper">
+                    <div class="ds-auth-card">
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <a href="/" class="ds-auth-brand mb-2">
+                                <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="28" height="28" rx="6" fill="#0F172A"/>
+                                    <path d="M14 6L6 10.5L14 15L22 10.5L14 6Z" stroke="#34D399" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6 14.5L14 19L22 14.5" stroke="#E2E8F0" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6 18.5L14 23L22 18.5" stroke="#E2E8F0" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="ds-auth-title">DARSENTRA</span>
+                                <span class="ds-auth-tag">K-12</span>
+                            </a>
+                            <div class="ds-auth-subtitle">Sign in to your school management workspace</div>
+                        </div>
+
+                        <!-- Login/Signup Form Slot -->
+                        <div t-out="0"/>
+
+                        <!-- Footer -->
+                        <div class="ds-auth-footer">
+                            &#169; 2026 Darsentra ERP • Pakistan K-12 School Suite
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
