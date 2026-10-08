@@ -37,4 +37,21 @@
               sequence="42"
               action="action_darsentra_school_house"
               groups="openeducat_core.group_op_back_office_admin"/>
+
+    <!-- Hide University / Higher-Ed Bloat Menus from School System -->
+    <record id="openeducat_core.menu_op_department_sub" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="openeducat_core.menu_op_program_sub" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="openeducat_core.menu_op_program_level_sub" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="openeducat_core.menu_op_school_config_program" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
 </odoo>
