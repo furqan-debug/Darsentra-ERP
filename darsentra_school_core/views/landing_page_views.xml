@@ -3,8 +3,20 @@
     <template id="landing_page" name="Darsentra School ERP Landing Page">
         <t t-call="web.frontend_layout">
             <t t-set="title">Darsentra — Modern School Management ERP for Pakistan</t>
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <t t-set="no_copyright" t-value="True"/>
             
             <style>
+                #wrapwrap > header,
+                #wrapwrap > footer,
+                #wrapwrap > .o_skip_to_content,
+                #top, #bottom,
+                .o_footer,
+                .o_footer_copyright {
+                    display: none !important;
+                }
+
                 :root {
                     --ds-font: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                     --ds-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;

@@ -3,8 +3,20 @@
     <template id="school_onboarding" name="Darsentra School Setup Onboarding">
         <t t-call="web.frontend_layout">
             <t t-set="title">School Setup — Darsentra ERP</t>
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <t t-set="no_copyright" t-value="True"/>
 
             <style>
+                #wrapwrap > header,
+                #wrapwrap > footer,
+                #wrapwrap > .o_skip_to_content,
+                #top, #bottom,
+                .o_footer,
+                .o_footer_copyright {
+                    display: none !important;
+                }
+
                 :root {
                     --ds-font: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                     --ds-slate-900: #0f172a;
