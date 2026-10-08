@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_school_progress_card" model="ir.actions.report">
+        <field name="name">Term Progress Report Card (Result Card)</field>
+        <field name="model">op.marksheet.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">darsentra_school_exam.report_progress_card_document</field>
+        <field name="report_file">darsentra_school_exam.report_progress_card_document</field>
+        <field name="print_report_name">'Result_Card_' + (object.student_id.name or 'Student')</field>
+        <field name="binding_model_id" ref="openeducat_exam.model_op_marksheet_line"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

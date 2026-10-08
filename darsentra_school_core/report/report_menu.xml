@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_school_leaving_cert" model="ir.actions.report">
+        <field name="name">School Leaving Certificate (SLC)</field>
+        <field name="model">darsentra.school.certificate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">darsentra_school_core.report_slc_document</field>
+        <field name="report_file">darsentra_school_core.report_slc_document</field>
+        <field name="print_report_name">'SLC_' + (object.student_id.name or 'Student')</field>
+        <field name="binding_model_id" ref="model_darsentra_school_certificate"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_character_cert" model="ir.actions.report">
+        <field name="name">Character &amp; Conduct Certificate</field>
+        <field name="model">darsentra.school.certificate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">darsentra_school_core.report_character_cert_document</field>
+        <field name="report_file">darsentra_school_core.report_character_cert_document</field>
+        <field name="print_report_name">'Character_Cert_' + (object.student_id.name or 'Student')</field>
+        <field name="binding_model_id" ref="model_darsentra_school_certificate"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

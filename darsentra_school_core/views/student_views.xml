@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_op_student_form_inherit_darsentra" model="ir.ui.view">
+        <field name="name">op.student.form.inherit.darsentra</field>
+        <field name="model">op.student</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
+        <field name="arch" type="xml">
+            <!-- Header quick fields -->
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <div class="d-flex align-items-baseline mt-1 text-primary">
+                    <span class="fw-bold me-2">NADRA B-Form:</span>
+                    <field name="b_form" placeholder="12345-1234567-1"/>
+                </div>
+            </xpath>
+
+            <!-- Notebook Tab: Parents & Emergency Contacts -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Parents &amp; Family Info" name="school_parents_info">
+                    <div class="row">
+                        <div class="col-12 col-md-6 border-end">
+                            <h4 class="text-primary mb-3"><i class="fa fa-user me-2"/>Father's Particulars</h4>
+                            <group>
+                                <field name="father_name" required="1"/>
+                                <field name="father_cnic" placeholder="12345-1234567-1"/>
+                                <field name="father_mobile" placeholder="0300-1234567 (SMS &amp; WhatsApp)" required="1"/>
+                                <field name="father_occupation"/>
+                            </group>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <h4 class="text-secondary mb-3"><i class="fa fa-female me-2"/>Mother's Particulars</h4>
+                            <group>
+                                <field name="mother_name"/>
+                                <field name="mother_cnic" placeholder="12345-1234567-1"/>
+                                <field name="mother_occupation"/>
+                            </group>
+                        </div>
+                    </div>
+                </page>
+
+                <!-- Notebook Tab: Transport & Logistics -->
+                <page string="Pick &amp; Drop / Van" name="school_transport_info">
+                    <group>
+                        <group string="Transport Mode">
+                            <field name="transport_mode" widget="radio"/>
+                            <field name="pickup_point" placeholder="e.g. Stop #4, Main Commercial Market"/>
+                        </group>
+                        <group string="Van / Driver Details" invisible="transport_mode not in ('school_van', 'private_van')">
+                            <field name="van_driver_name"/>
+                            <field name="van_driver_phone" placeholder="03XX-XXXXXXX"/>
+                            <field name="van_number" placeholder="e.g. LEA-2024 / Hiace 12"/>
+                        </group>
+                    </group>
+                </page>
+
+                <!-- Notebook Tab: School House & History -->
+                <page string="School House &amp; Enrollment" name="school_house_history">
+                    <group>
+                        <group string="School Life">
+                            <field name="house_id"/>
+                            <field name="nazra_quran"/>
+                            <field name="religion"/>
+                        </group>
+                        <group string="Previous School">
+                            <field name="previous_school_name"/>
+                            <field name="previous_slc_number"/>
+                            <field name="admission_date"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Student Tree View Extension -->
+    <record id="view_op_student_tree_inherit_darsentra" model="ir.ui.view">
+        <field name="name">op.student.list.inherit.darsentra</field>
+        <field name="model">op.student</field>
+        <field name="inherit_id" ref="openeducat_core.view_op_student_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="b_form" optional="show"/>
+                <field name="father_name" optional="show"/>
+                <field name="father_mobile" optional="show"/>
+                <field name="house_id" optional="hide"/>
+                <field name="transport_mode" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

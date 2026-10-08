@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_school_challan_single_copy">
+        <div class="col-4 border border-dark p-2" style="font-size: 9.5px; min-height: 100%;">
+            <!-- Header -->
+            <div class="text-center mb-1 pb-1 border-bottom border-dark">
+                <div class="fw-bold" style="font-size: 13px; color: #1e3a8a;"><t t-esc="o.company_id.name or 'DARSENTRA PUBLIC SCHOOL'"/></div>
+                <div class="text-muted" style="font-size: 8.5px;"><t t-esc="o.company_id.street"/>, <t t-esc="o.company_id.city"/></div>
+                <div class="badge bg-dark text-white px-2 py-1 mt-1 text-uppercase" style="font-size: 9.5px; letter-spacing: 1px;">
+                    <t t-esc="copy_title"/>
+                </div>
+            </div>
+
+            <!-- Month Banner -->
+            <div class="bg-primary bg-opacity-10 text-primary border border-primary text-center p-1 mb-1 rounded fw-bold" style="font-size: 10px;">
+                FEE CHALLAN FOR: <span class="text-uppercase text-danger"><t t-esc="o.billing_month or 'CURRENT MONTH'"/></span>
+            </div>
+
+            <!-- Bank / Account -->
+            <div class="bg-light p-1 border border-secondary mb-1" style="font-size: 9px;">
+                <div class="row g-0">
+                    <div class="col-4 fw-bold">Deposit Bank:</div>
+                    <div class="col-8"><t t-esc="o.bank_account_id.bank_name or 'All Online Bank Branches / ATMs'"/></div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-4 fw-bold">Account Title:</div>
+                    <div class="col-8"><t t-esc="o.bank_account_id.acc_holder_name or o.company_id.name"/></div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-4 fw-bold">1Link Consumer:</div>
+                    <div class="col-8 fw-bold text-primary"><t t-esc="o.consumer_number or '100200000001'"/></div>
+                </div>
+            </div>
+
+            <!-- Student Metadata -->
+            <table class="table table-sm table-borderless mb-1" style="font-size: 9px; line-height: 1.2;">
+                <tbody>
+                    <tr>
+                        <td class="p-0 fw-bold" style="width: 35%;">Challan No:</td>
+                        <td class="p-0"><t t-esc="o.name"/></td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 fw-bold">Student Name:</td>
+                        <td class="p-0 fw-bold"><t t-esc="o.student_id.name or o.partner_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 fw-bold">Father's Name:</td>
+                        <td class="p-0"><t t-esc="o.father_name or '-'"/></td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 fw-bold">Class / Section:</td>
+                        <td class="p-0"><t t-esc="o.class_id.name or '-'"/> (<t t-esc="o.section_id.name or '-'"/>)</td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 fw-bold">Roll No / G.R:</td>
+                        <td class="p-0"><t t-esc="o.roll_number or o.student_id.gr_no or '-'"/></td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 fw-bold">B-Form No:</td>
+                        <td class="p-0"><t t-esc="o.student_b_form or '-'"/></td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 fw-bold text-danger">Due Date:</td>
+                        <td class="p-0 fw-bold text-danger"><t t-esc="o.invoice_date_due"/></td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 fw-bold">Bank Expiry:</td>
+                        <td class="p-0"><t t-esc="o.validity_date"/></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Line Items Table -->
+            <table class="table table-bordered table-sm mb-1" style="font-size: 8.5px;">
+                <thead class="table-light">
+                    <tr>
+                        <th class="p-1">Fee Head</th>
+                        <th class="p-1 text-end">Amount (PKR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.invoice_line_ids" t-as="line">
+                        <td class="p-1"><t t-esc="line.name"/></td>
+                        <td class="p-1 text-end"><t t-esc="'{:,.2f}'.format(line.price_subtotal)"/></td>
+                    </tr>
+                    <tr t-if="o.arrears_amount &gt; 0">
+                        <td class="p-1 text-danger">Previous Unpaid Arrears</td>
+                        <td class="p-1 text-end text-danger"><t t-esc="'{:,.2f}'.format(o.arrears_amount)"/></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Totals Box -->
+            <div class="border border-dark p-1 mb-2">
+                <div class="d-flex justify-content-between fw-bold text-success" style="font-size: 11px;">
+                    <span>Within Due Date:</span>
+                    <span>PKR <t t-esc="'{:,.2f}'.format(o.amount_total)"/></span>
+                </div>
+                <div class="d-flex justify-content-between text-muted" style="font-size: 8.5px;">
+                    <span>Late Fine After Due Date:</span>
+                    <span>+ PKR <t t-esc="'{:,.2f}'.format(o.late_fee_surcharge)"/></span>
+                </div>
+                <div class="d-flex justify-content-between fw-bold text-danger border-top border-secondary pt-1 mt-1" style="font-size: 11px;">
+                    <span>After Due Date:</span>
+                    <span>PKR <t t-esc="'{:,.2f}'.format(o.total_with_late_fee)"/></span>
+                </div>
+            </div>
+
+            <!-- Notes & Signatures -->
+            <div style="font-size: 7.5px; color: #555;" class="mb-2">
+                <div>• Pay via 1Link 1Bill mobile banking (JazzCash, Easypaisa, Banks) using Consumer ID.</div>
+                <div>• Fee is non-refundable and strictly payable by the due date.</div>
+            </div>
+
+            <div class="row text-center mt-3" style="font-size: 8px;">
+                <div class="col-4 border-top border-dark pt-1">Parent Sign</div>
+                <div class="col-4 border-top border-dark pt-1">Bank Cashier</div>
+                <div class="col-4 border-top border-dark pt-1">School Accounts</div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_school_challan_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="page-break-after: always; padding: 10px;">
+                    <div class="row g-2">
+                        <!-- 1. Bank Copy -->
+                        <t t-call="darsentra_school_fees.report_school_challan_single_copy">
+                            <t t-set="copy_title" t-value="'1. Bank Copy'"/>
+                        </t>
+
+                        <!-- 2. School Accounts Copy -->
+                        <t t-call="darsentra_school_fees.report_school_challan_single_copy">
+                            <t t-set="copy_title" t-value="'2. School Copy'"/>
+                        </t>
+
+                        <!-- 3. Parent Copy -->
+                        <t t-call="darsentra_school_fees.report_school_challan_single_copy">
+                            <t t-set="copy_title" t-value="'3. Parent Copy'"/>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_darsentra_school_house_user,darsentra.school.house.user,model_darsentra_school_house,openeducat_core.group_op_faculty,1,0,0,0
+access_darsentra_school_house_admin,darsentra.school.house.admin,model_darsentra_school_house,openeducat_core.group_op_back_office_admin,1,1,1,1
+access_darsentra_school_cert_user,darsentra.school.certificate.user,model_darsentra_school_certificate,openeducat_core.group_op_faculty,1,1,1,0
+access_darsentra_school_cert_admin,darsentra.school.certificate.admin,model_darsentra_school_certificate,openeducat_core.group_op_back_office_admin,1,1,1,1

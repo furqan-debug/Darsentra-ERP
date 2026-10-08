@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_character_cert_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="padding: 30px; font-family: 'Times New Roman', serif;">
+                    <div style="border: 4px double #15803d; padding: 30px; border-radius: 6px; min-height: 850px;">
+                        
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <h2 style="font-size: 26px; font-weight: bold; color: #15803d; text-transform: uppercase;">
+                                <t t-esc="o.create_uid.company_id.name or 'DARSENTRA PUBLIC HIGH SCHOOL'"/>
+                            </h2>
+                            <div style="font-size: 13px; color: #475569;">
+                                Quality Education with Moral Values
+                            </div>
+                            <div class="mt-3">
+                                <span style="display: inline-block; padding: 6px 24px; border: 2px solid #15803d; font-size: 18px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; background-color: #f0fdf4;">
+                                    CHARACTER &amp; CONDUCT CERTIFICATE
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Meta -->
+                        <div class="d-flex justify-content-between mb-4" style="font-size: 14px;">
+                            <div><strong>Ref No:</strong> <t t-esc="o.certificate_number"/></div>
+                            <div><strong>G.R. No:</strong> <t t-esc="o.gr_no or '-'"/></div>
+                            <div><strong>Date:</strong> <t t-esc="o.issue_date"/></div>
+                        </div>
+
+                        <!-- Text -->
+                        <div style="font-size: 16px; line-height: 2.4; text-align: justify; margin-top: 40px;">
+                            This is to certify that 
+                            <strong style="text-decoration: underline; color: #15803d;"><t t-esc="o.student_id.name"/></strong>,
+                            Son / Daughter of 
+                            <strong style="text-decoration: underline;"><t t-esc="o.father_name or '-'"/></strong>,
+                            holding B-Form No. <strong style="text-decoration: underline;"><t t-esc="o.b_form or '-'"/></strong>,
+                            has been a bonafide student of this school in Class 
+                            <strong style="text-decoration: underline;"><t t-esc="o.class_at_leaving.name or '-'"/></strong>.
+                            <br/>
+                            During his / her stay at this institution, his / her conduct, morality, and discipline have been found 
+                            <strong style="text-decoration: underline; color: #15803d;"><t t-esc="dict(o._fields['conduct_and_character'].selection).get(o.conduct_and_character)"/></strong>.
+                            He / She actively participated in curricular and extracurricular activities and bore a respectable moral attitude towards teachers and fellow students.
+                            <br/>
+                            To the best of our knowledge and belief, he / she bears a good moral character.
+                            <br/>
+                            We wish him / her all the best in his / her future academic endeavours.
+                        </div>
+
+                        <!-- Signatures -->
+                        <div class="row text-center" style="margin-top: 180px; font-size: 14px;">
+                            <div class="col-6">
+                                <div style="border-top: 1px solid #000; width: 60%; margin: 0 auto; padding-top: 6px; font-weight: bold;">Class Teacher</div>
+                            </div>
+                            <div class="col-6">
+                                <div style="border-top: 1px solid #000; width: 60%; margin: 0 auto; padding-top: 6px; font-weight: bold;">Principal / Headmaster</div>
+                                <div style="font-size: 11px; color: #64748b;">(Official Seal)</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

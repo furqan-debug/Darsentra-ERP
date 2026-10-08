@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_view_school_fee_challans" model="ir.actions.act_window">
+        <field name="name">Monthly Fee Challans</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="domain">[('is_school_fee', '=', True)]</field>
+        <field name="context">{'default_is_school_fee': True, 'default_move_type': 'out_invoice'}</field>
+    </record>
+
+    <!-- School Monthly Fee Menus under School Root -->
+    <menuitem id="menu_darsentra_school_fees_main"
+              name="Fees &amp; Challans"
+              parent="openeducat_core.menu_op_school_root"
+              sequence="25"/>
+
+    <menuitem id="menu_darsentra_monthly_fee_generator"
+              name="Generate Monthly Challans"
+              parent="menu_darsentra_school_fees_main"
+              sequence="10"
+              action="action_darsentra_monthly_fee_wizard"
+              groups="openeducat_core.group_op_back_office_admin"/>
+
+    <menuitem id="menu_darsentra_school_challans_list"
+              name="School Fee Challans"
+              parent="menu_darsentra_school_fees_main"
+              sequence="20"
+              action="action_view_school_fee_challans"
+              groups="openeducat_core.group_op_faculty"/>
+</odoo>

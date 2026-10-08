@@ -1,0 +1,28 @@
+{
+    'name': 'Darsentra - Pakistan School Management Core',
+    'version': '19.0.1.0',
+    'category': 'Education/School',
+    'summary': 'NADRA B-Form, Parent WhatsApp Contacts, School Houses, Van/Transport Routes, and School Leaving Certificates (SLC)',
+    'author': 'Darsentra ERP',
+    'website': 'https://github.com/furqan-debug/Darsentra-ERP',
+    'license': 'LGPL-3',
+    'depends': [
+        'openeducat_core',
+        'openeducat_admission',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/school_house_data.xml',
+        'report/report_menu.xml',
+        'report/report_slc_template.xml',
+        'report/report_character_cert_template.xml',
+        'views/school_house_views.xml',
+        'views/student_views.xml',
+        'views/admission_views.xml',
+        'views/school_certificate_views.xml',
+        'views/school_menu_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

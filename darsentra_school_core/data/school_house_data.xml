@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="house_jinnah" model="darsentra.school.house">
+            <field name="name">Jinnah House</field>
+            <field name="color_code">#15803d</field>
+            <field name="motto">Unity, Faith, and Discipline</field>
+        </record>
+        <record id="house_iqbal" model="darsentra.school.house">
+            <field name="name">Iqbal House</field>
+            <field name="color_code">#1d4ed8</field>
+            <field name="motto">Knowledge, Vision, and Courage</field>
+        </record>
+        <record id="house_liaquat" model="darsentra.school.house">
+            <field name="name">Liaquat House</field>
+            <field name="color_code">#b91c1c</field>
+            <field name="motto">Service, Loyalty, and Honour</field>
+        </record>
+        <record id="house_sirsyed" model="darsentra.school.house">
+            <field name="name">Sir Syed House</field>
+            <field name="color_code">#b45309</field>
+            <field name="motto">Progress, Wisdom, and Enlightenment</field>
+        </record>
+    </data>
+</odoo>

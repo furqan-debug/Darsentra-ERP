@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_darsentra_school_certificate_tree" model="ir.ui.view">
+        <field name="name">darsentra.school.certificate.list</field>
+        <field name="model">darsentra.school.certificate</field>
+        <field name="arch" type="xml">
+            <list string="School Certificates">
+                <field name="certificate_number"/>
+                <field name="certificate_type"/>
+                <field name="student_id"/>
+                <field name="father_name"/>
+                <field name="b_form"/>
+                <field name="class_at_leaving"/>
+                <field name="issue_date"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'approved'"
+                       decoration-success="state == 'issued'"
+                       decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_darsentra_school_certificate_form" model="ir.ui.view">
+        <field name="name">darsentra.school.certificate.form</field>
+        <field name="model">darsentra.school.certificate</field>
+        <field name="arch" type="xml">
+            <form string="School Certificate">
+                <header>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_issue" type="object" string="Issue Official Certificate" class="btn-success" invisible="state != 'approved'"/>
+                    <button name="%(darsentra_school_core.action_report_school_leaving_cert)d"
+                            type="action" string="Print Leaving Certificate (SLC)"
+                            class="btn-outline-primary"
+                            invisible="certificate_type != 'slc' or state not in ('approved', 'issued')"/>
+                    <button name="%(darsentra_school_core.action_report_character_cert)d"
+                            type="action" string="Print Character Certificate"
+                            class="btn-outline-primary"
+                            invisible="certificate_type != 'character' or state not in ('approved', 'issued')"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft" invisible="state not in ('cancelled', 'approved')"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state in ('cancelled', 'issued')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,issued"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label"><field name="certificate_type"/></span>
+                        <h1><field name="certificate_number"/></h1>
+                    </div>
+                    <group>
+                        <group string="Student Information">
+                            <field name="student_id" options="{'no_create': True}"/>
+                            <field name="gr_no"/>
+                            <field name="father_name"/>
+                            <field name="b_form"/>
+                            <field name="birth_date"/>
+                        </group>
+                        <group string="Dates &amp; Clearance">
+                            <field name="date_of_admission"/>
+                            <field name="date_of_leaving"/>
+                            <field name="issue_date"/>
+                            <field name="dues_cleared" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Academic Progress">
+                            <field name="class_at_leaving"/>
+                            <field name="section_at_leaving"/>
+                            <field name="class_promoted_to"/>
+                        </group>
+                        <group string="Departure Particulars">
+                            <field name="reason_for_leaving"/>
+                            <field name="reason_detail" invisible="reason_for_leaving != 'other'"/>
+                            <field name="conduct_and_character"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Remarks for Record" name="remarks">
+                            <field name="remarks" placeholder="Enter special remarks or administrative notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_darsentra_school_certificate" model="ir.actions.act_window">
+        <field name="name">School Certificates (SLC)</field>
+        <field name="res_model">darsentra.school.certificate</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Issue official School Leaving Certificates (SLC) and Character Certificates
+            </p>
+        </field>
+    </record>
+</odoo>

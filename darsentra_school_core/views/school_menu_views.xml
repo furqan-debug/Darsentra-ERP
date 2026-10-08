@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Rebrand Root Menu to Darsentra School -->
+    <record id="openeducat_core.menu_op_school_root" model="ir.ui.menu">
+        <field name="name">Darsentra School</field>
+    </record>
+
+    <!-- Rebrand Faculties to Teachers & Staff -->
+    <record id="openeducat_core.menu_op_faculty_main" model="ir.ui.menu">
+        <field name="name">Teachers &amp; Staff</field>
+    </record>
+
+    <!-- Rebrand Courses to Classes & Sections -->
+    <record id="openeducat_core.menu_op_school_config_course" model="ir.ui.menu">
+        <field name="name">Classes &amp; Sections</field>
+    </record>
+
+    <record id="openeducat_core.menu_op_course_sub" model="ir.ui.menu">
+        <field name="name">Classes (Grades 1-10)</field>
+    </record>
+
+    <record id="openeducat_core.menu_op_batch_sub" model="ir.ui.menu">
+        <field name="name">Sections (A, B, C...)</field>
+    </record>
+
+    <!-- New Top Level School Menus -->
+    <menuitem id="menu_darsentra_school_certificates"
+              name="Leaving Certificates (SLC)"
+              parent="openeducat_core.menu_op_school_root"
+              sequence="35"
+              action="action_darsentra_school_certificate"
+              groups="openeducat_core.group_op_faculty"/>
+
+    <menuitem id="menu_darsentra_school_houses"
+              name="School Houses"
+              parent="openeducat_core.menu_op_school_config"
+              sequence="42"
+              action="action_darsentra_school_house"
+              groups="openeducat_core.group_op_back_office_admin"/>
+</odoo>

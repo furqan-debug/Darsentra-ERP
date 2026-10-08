@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_op_admission_form_inherit_darsentra" model="ir.ui.view">
+        <field name="name">op.admission.form.inherit.darsentra</field>
+        <field name="model">op.admission</field>
+        <field name="inherit_id" ref="openeducat_admission.view_op_admission_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <div class="d-flex align-items-baseline mt-1 text-primary">
+                    <span class="fw-bold me-2">NADRA B-Form:</span>
+                    <field name="b_form" placeholder="12345-1234567-1" readonly="state == 'done'"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Parents &amp; Family Info" name="admission_parents_info">
+                    <div class="row">
+                        <div class="col-12 col-md-6 border-end">
+                            <h4 class="text-primary mb-3"><i class="fa fa-user me-2"/>Father's Particulars</h4>
+                            <group>
+                                <field name="father_name" required="1" readonly="state == 'done'"/>
+                                <field name="father_cnic" placeholder="12345-1234567-1" readonly="state == 'done'"/>
+                                <field name="father_mobile" placeholder="0300-1234567" required="1" readonly="state == 'done'"/>
+                                <field name="father_occupation" readonly="state == 'done'"/>
+                            </group>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <h4 class="text-secondary mb-3"><i class="fa fa-female me-2"/>Mother's Particulars</h4>
+                            <group>
+                                <field name="mother_name" readonly="state == 'done'"/>
+                                <field name="mother_cnic" placeholder="12345-1234567-1" readonly="state == 'done'"/>
+                                <field name="mother_occupation" readonly="state == 'done'"/>
+                            </group>
+                        </div>
+                    </div>
+                </page>
+
+                <page string="Pick &amp; Drop / Van" name="admission_transport_info">
+                    <group>
+                        <group string="Transport Mode">
+                            <field name="transport_mode" widget="radio" readonly="state == 'done'"/>
+                            <field name="pickup_point" placeholder="e.g. Stop #4, Main Road" readonly="state == 'done'"/>
+                        </group>
+                        <group string="Van Details" invisible="transport_mode not in ('school_van', 'private_van')">
+                            <field name="van_driver_name" readonly="state == 'done'"/>
+                            <field name="van_driver_phone" readonly="state == 'done'"/>
+                            <field name="van_number" readonly="state == 'done'"/>
+                        </group>
+                    </group>
+                </page>
+
+                <page string="School House &amp; Previous Record" name="admission_house_history">
+                    <group>
+                        <group string="School Life">
+                            <field name="house_id" readonly="state == 'done'"/>
+                            <field name="nazra_quran" readonly="state == 'done'"/>
+                            <field name="religion" readonly="state == 'done'"/>
+                        </group>
+                        <group string="Previous School">
+                            <field name="previous_school_name" readonly="state == 'done'"/>
+                            <field name="previous_slc_number" readonly="state == 'done'"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Admission Tree View Extension -->
+    <record id="view_op_admission_tree_inherit_darsentra" model="ir.ui.view">
+        <field name="name">op.admission.list.inherit.darsentra</field>
+        <field name="model">op.admission</field>
+        <field name="inherit_id" ref="openeducat_admission.view_op_admission_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="b_form" optional="show"/>
+                <field name="father_name" optional="show"/>
+                <field name="father_mobile" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

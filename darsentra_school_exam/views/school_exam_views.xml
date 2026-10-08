@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Marksheet Line Form Extension -->
+    <record id="view_op_marksheet_line_form_inherit_darsentra" model="ir.ui.view">
+        <field name="name">op.marksheet.line.form.inherit.darsentra</field>
+        <field name="model">op.marksheet.line</field>
+        <field name="inherit_id" ref="openeducat_exam.view_op_marksheet_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(darsentra_school_exam.action_report_school_progress_card)d"
+                        string="Print Term Progress Card"
+                        type="action"
+                        class="btn-primary"/>
+            </xpath>
+
+            <xpath expr="//field[@name='status']" position="after">
+                <field name="class_position" class="fs-5 fw-bold text-primary"/>
+                <field name="school_grade"/>
+                <field name="term_attendance_percentage"/>
+                <field name="teacher_remarks"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Marksheet Line List Extension -->
+    <record id="view_op_marksheet_line_tree_inherit_darsentra" model="ir.ui.view">
+        <field name="name">op.marksheet.line.list.inherit.darsentra</field>
+        <field name="model">op.marksheet.line</field>
+        <field name="inherit_id" ref="openeducat_exam.view_op_marksheet_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='percentage']" position="after">
+                <field name="class_position" widget="badge" decoration-warning="position_rank in (1, 2, 3)" decoration-info="position_rank &gt; 3"/>
+                <field name="school_grade" optional="show"/>
+                <field name="teacher_remarks" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Marksheet Register: Calculate Positions Button -->
+    <record id="view_op_marksheet_register_form_inherit_darsentra" model="ir.ui.view">
+        <field name="name">op.marksheet.register.form.inherit.darsentra</field>
+        <field name="model">op.marksheet.register</field>
+        <field name="inherit_id" ref="openeducat_exam.view_op_marksheet_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_calculate_class_positions"
+                        string="Calculate 1st / 2nd / 3rd Positions"
+                        type="object"
+                        class="btn-outline-warning"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

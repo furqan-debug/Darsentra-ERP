@@ -1,0 +1,26 @@
+{
+    'name': 'Darsentra - Pakistan School Monthly Fee & Challan Engine',
+    'version': '19.0.1.0',
+    'category': 'Education/Fees',
+    'summary': 'Bulk Monthly Fee Generator, Sibling Discount Engine, Arrears Tracking, and 3-Part School Bank Challan Slips',
+    'author': 'Darsentra ERP',
+    'website': 'https://github.com/furqan-debug/Darsentra-ERP',
+    'license': 'LGPL-3',
+    'depends': [
+        'openeducat_core',
+        'openeducat_fees',
+        'account',
+        'darsentra_school_core',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'report/report_menu.xml',
+        'report/report_school_challan_templates.xml',
+        'views/account_move_views.xml',
+        'wizard/monthly_fee_generator_views.xml',
+        'views/school_fees_menu.xml',
+    ],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+}

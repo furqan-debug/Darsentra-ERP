@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_darsentra_monthly_fee_wizard_admin,darsentra.monthly.fee.wizard.admin,model_darsentra_monthly_fee_wizard,openeducat_core.group_op_back_office_admin,1,1,1,1
+access_darsentra_monthly_fee_wizard_faculty,darsentra.monthly.fee.wizard.faculty,model_darsentra_monthly_fee_wizard,openeducat_core.group_op_faculty,1,1,1,0

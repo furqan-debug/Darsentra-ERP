@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_darsentra_monthly_fee_wizard_form" model="ir.ui.view">
+        <field name="name">darsentra.monthly.fee.wizard.form</field>
+        <field name="model">darsentra.monthly.fee.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Monthly School Fee Challans">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Bulk Monthly Fee Generator:</strong> Generates individual fee challans for students with automatic sibling discount detection based on Father's CNIC / Mobile.
+                    </div>
+                    <group>
+                        <group string="Billing Cycle">
+                            <field name="billing_month" placeholder="e.g. April 2026"/>
+                            <field name="invoice_date"/>
+                            <field name="due_date"/>
+                            <field name="validity_date"/>
+                        </group>
+                        <group string="Target Cohort">
+                            <field name="class_id" placeholder="All Classes if empty"/>
+                            <field name="section_id" placeholder="All Sections if empty"/>
+                            <field name="tuition_fee_amount"/>
+                            <field name="late_fee_surcharge"/>
+                        </group>
+                    </group>
+                    <group string="Automatic Sibling Discount Rules">
+                        <group>
+                            <field name="apply_sibling_discount" widget="boolean_toggle"/>
+                        </group>
+                        <group invisible="not apply_sibling_discount">
+                            <field name="second_child_discount"/>
+                            <field name="third_child_discount"/>
+                        </group>
+                    </group>
+                    <group string="Optional Extra Funds">
+                        <group>
+                            <field name="include_exam_fund" widget="boolean_toggle"/>
+                        </group>
+                        <group invisible="not include_exam_fund">
+                            <field name="exam_fund_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_generate_monthly_fees" type="object" string="Generate All Fee Challans" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_darsentra_monthly_fee_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Monthly Fee Challans</field>
+        <field name="res_model">darsentra.monthly.fee.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
