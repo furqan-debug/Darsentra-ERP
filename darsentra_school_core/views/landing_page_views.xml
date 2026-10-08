@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="landing_page" name="Darsentra School ERP Landing Page">
+        <t t-call="web.frontend_layout">
+            <t t-set="title">Darsentra ERP - Pakistan's Premier School Management System</t>
+            
+            <style>
+                :root {
+                    --ds-primary: #047857;
+                    --ds-primary-dark: #065f46;
+                    --ds-primary-light: #ecfdf5;
+                    --ds-accent: #0284c7;
+                    --ds-slate: #0f172a;
+                    --ds-muted: #64748b;
+                }
+                .ds-hero-bg {
+                    background: radial-gradient(circle at 50% 0%, #ecfdf5 0%, #f8fafc 70%, #ffffff 100%);
+                }
+                .ds-badge-pill {
+                    background-color: #d1fae5;
+                    color: #065f46;
+                    font-weight: 600;
+                    font-size: 0.85rem;
+                    padding: 0.35rem 1rem;
+                    border-radius: 9999px;
+                    display: inline-flex;
+                    align-items: center;
+                    border: 1px solid #a7f3d0;
+                }
+                .ds-card {
+                    background: #ffffff;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 12px;
+                    padding: 24px;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+                .ds-card:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+                }
+                .ds-icon-box {
+                    width: 52px;
+                    height: 52px;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 24px;
+                    margin-bottom: 16px;
+                }
+                .ds-btn-primary {
+                    background-color: var(--ds-primary);
+                    color: #ffffff !important;
+                    font-weight: 600;
+                    border-radius: 8px;
+                    padding: 0.75rem 1.75rem;
+                    border: none;
+                    transition: all 0.2s ease;
+                    text-decoration: none;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                .ds-btn-primary:hover {
+                    background-color: var(--ds-primary-dark);
+                    box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
+                }
+                .ds-btn-outline {
+                    border: 1px solid #cbd5e1;
+                    color: #1e293b !important;
+                    font-weight: 600;
+                    border-radius: 8px;
+                    padding: 0.75rem 1.5rem;
+                    background: #ffffff;
+                    transition: all 0.2s ease;
+                    text-decoration: none;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                .ds-btn-outline:hover {
+                    background: #f1f5f9;
+                    border-color: #94a3b8;
+                }
+                .ds-nav {
+                    border-bottom: 1px solid #f1f5f9;
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(8px);
+                }
+            </style>
+
+            <div id="wrap" class="oe_structure oe_empty">
+                <!-- Top Navigation Bar -->
+                <nav class="ds-nav py-3 sticky-top">
+                    <div class="container d-flex align-items-center justify-content-between">
+                        <a href="/" class="d-flex align-items-center text-decoration-none">
+                            <span class="fs-4 me-2">🏫</span>
+                            <span class="fs-4 fw-bold text-dark tracking-wide">DARSENTRA</span>
+                            <span class="badge bg-success ms-2 text-white px-2 py-1" style="font-size: 0.7rem;">PAKISTAN SCHOOL ERP</span>
+                        </a>
+
+                        <div class="d-none d-md-flex align-items-center gap-4">
+                            <a href="#features" class="text-secondary text-decoration-none fw-medium">Features</a>
+                            <a href="#challan" class="text-secondary text-decoration-none fw-medium">Fee Challans</a>
+                            <a href="#exams" class="text-secondary text-decoration-none fw-medium">Exams &amp; Reports</a>
+                            <a href="#localization" class="text-secondary text-decoration-none fw-medium">Localization</a>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2">
+                            <t t-if="is_logged_in">
+                                <t t-if="has_completed_setup">
+                                    <a href="/web" class="ds-btn-primary py-2 px-3">
+                                        <span>ERP Dashboard</span> &#8594;
+                                    </a>
+                                </t>
+                                <t t-else="">
+                                    <a href="/school/onboarding" class="ds-btn-primary py-2 px-3">
+                                        <span>Setup School</span> &#8594;
+                                    </a>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <a href="/web/login" class="ds-btn-outline py-2 px-3">Sign In</a>
+                                <a href="/web/signup" class="ds-btn-primary py-2 px-3">Register School</a>
+                            </t>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Hero Section -->
+                <section class="ds-hero-bg py-5 border-bottom">
+                    <div class="container py-4 text-center">
+                        <div class="mb-3">
+                            <span class="ds-badge-pill">
+                                🇵🇰 Pakistan's #1 Localized School Management System
+                            </span>
+                        </div>
+
+                        <h1 class="display-4 fw-bolder text-dark mb-3 mx-auto" style="max-width: 900px; line-height: 1.2;">
+                            The Modern ERP Built Specifically for Pakistani Schools
+                        </h1>
+
+                        <p class="lead text-muted mb-4 mx-auto" style="max-width: 760px; font-size: 1.2rem;">
+                            Eliminate university bloat and run your school with localized speed. From <strong>NADRA B-Form verification</strong> and <strong>1Link 3-copy fee challans</strong> with automated sibling discounts, to <strong>BISE board class positions</strong> and printable term report cards.
+                        </p>
+
+                        <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+                            <t t-if="is_logged_in">
+                                <a href="/web" class="ds-btn-primary fs-5 px-4 py-3">
+                                    <span>Open School Dashboard</span> 🚀
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <a href="/web/signup" class="ds-btn-primary fs-5 px-4 py-3">
+                                    <span>Register Your School (Sign Up)</span> 🚀
+                                </a>
+                                <a href="/web/login" class="ds-btn-outline fs-5 px-4 py-3">
+                                    <span>Sign In to School</span>
+                                </a>
+                            </t>
+                        </div>
+
+                        <!-- Proof Points / Badges -->
+                        <div class="row g-3 justify-content-center text-start mx-auto" style="max-width: 950px;">
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 bg-white border rounded text-center">
+                                    <div class="fs-4 mb-1">🪪</div>
+                                    <div class="fw-bold text-dark small">NADRA B-Form</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;">Automatic 13-digit Check</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 bg-white border rounded text-center">
+                                    <div class="fs-4 mb-1">🧾</div>
+                                    <div class="fw-bold text-dark small">3-Copy Bank Challan</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;">1Link / Kuickpay ID</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 bg-white border rounded text-center">
+                                    <div class="fs-4 mb-1">👨‍👧‍👦</div>
+                                    <div class="fw-bold text-dark small">Sibling Discounts</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;">10% 2nd / 20% 3rd Child</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="p-3 bg-white border rounded text-center">
+                                    <div class="fs-4 mb-1">🏆</div>
+                                    <div class="fw-bold text-dark small">Class Rankings</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;">1st, 2nd, 3rd Positions</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Features Section -->
+                <section id="features" class="py-5 bg-white">
+                    <div class="container py-4">
+                        <div class="text-center mb-5">
+                            <span class="text-success fw-bold text-uppercase small tracking-wide">Purpose-Built Modules</span>
+                            <h2 class="fw-bold text-dark mt-1">Everything Your School Administration Needs</h2>
+                            <p class="text-muted mx-auto" style="max-width: 600px;">Streamlined specifically for Pre-School, Primary, Middle, Matric, and O-Levels.</p>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- Feature 1 -->
+                            <div class="col-md-4">
+                                <div class="ds-card h-100">
+                                    <div class="ds-icon-box bg-light text-success">🪪</div>
+                                    <h4 class="fw-bold text-dark fs-5">Student Profiles &amp; NADRA</h4>
+                                    <p class="text-muted small">
+                                        Built-in validation for 13-digit NADRA B-Form / CRC numbers. Complete father and mother profiles with WhatsApp mobile for fee notifications and announcements.
+                                    </p>
+                                    <ul class="list-unstyled small text-secondary mt-3">
+                                        <li>✓ NADRA B-Form format verification</li>
+                                        <li>✓ Father WhatsApp mobile reminders</li>
+                                        <li>✓ School Houses (Jinnah, Iqbal, etc.)</li>
+                                        <li>✓ Pick &amp; drop transport van route</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Feature 2 -->
+                            <div class="col-md-4" id="challan">
+                                <div class="ds-card h-100 border-success shadow-sm">
+                                    <div class="ds-icon-box bg-success text-white">🧾</div>
+                                    <h4 class="fw-bold text-dark fs-5">Monthly Fee Challans &amp; 1Link</h4>
+                                    <p class="text-muted small">
+                                        Bulk generate monthly tuition fees by class and section. Automatic sibling discount calculations, arrears carry-forward, and printable 3-part bank slips.
+                                    </p>
+                                    <ul class="list-unstyled small text-secondary mt-3">
+                                        <li>✓ 3-Part Challan (Bank, School, Parent)</li>
+                                        <li>✓ 12-digit 1Link / Kuickpay consumer ID</li>
+                                        <li>✓ Auto sibling discount (10% 2nd, 20% 3rd)</li>
+                                        <li>✓ Late fee fine calculation</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Feature 3 -->
+                            <div class="col-md-4" id="exams">
+                                <div class="ds-card h-100">
+                                    <div class="ds-icon-box bg-light text-primary">🏆</div>
+                                    <h4 class="fw-bold text-dark fs-5">Exams &amp; Term Report Cards</h4>
+                                    <p class="text-muted small">
+                                        Subject-wise marks entry (Max, Pass, Obtained). Automatic calculation of class positions and Pakistani BISE grade scale with printable result cards.
+                                    </p>
+                                    <ul class="list-unstyled small text-secondary mt-3">
+                                        <li>✓ 1st Position 🏆, 2nd 🥈, 3rd 🥉 badges</li>
+                                        <li>✓ BISE grade scale (A+, A, B, C, D, E, F)</li>
+                                        <li>✓ Printable Term Progress Report Cards</li>
+                                        <li>✓ Teacher remarks &amp; attendance %</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Feature 4 -->
+                            <div class="col-md-4">
+                                <div class="ds-card h-100">
+                                    <div class="ds-icon-box bg-light text-warning">📅</div>
+                                    <h4 class="fw-bold text-dark fs-5">Attendance &amp; Bell Timetable</h4>
+                                    <p class="text-muted small">
+                                        Daily morning student roll call sheet, period-wise class timetables, and teacher subject schedules.
+                                    </p>
+                                    <ul class="list-unstyled small text-secondary mt-3">
+                                        <li>✓ Fast student roll-call attendance</li>
+                                        <li>✓ Class and section periods timetable</li>
+                                        <li>✓ Teacher workload distribution</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Feature 5 -->
+                            <div class="col-md-4">
+                                <div class="ds-card h-100">
+                                    <div class="ds-icon-box bg-light text-info">📜</div>
+                                    <h4 class="fw-bold text-dark fs-5">Official Certificates (SLC)</h4>
+                                    <p class="text-muted small">
+                                        One-click generation of verified official documents with auto serial numbers and dues verification before issuance.
+                                    </p>
+                                    <ul class="list-unstyled small text-secondary mt-3">
+                                        <li>✓ School Leaving Certificate (SLC)</li>
+                                        <li>✓ Character &amp; Conduct Certificate</li>
+                                        <li>✓ Bonafide Student Certificate</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Feature 6 -->
+                            <div class="col-md-4" id="localization">
+                                <div class="ds-card h-100">
+                                    <div class="ds-icon-box bg-light text-danger">🇵🇰</div>
+                                    <h4 class="fw-bold text-dark fs-5">Zero University Bloat</h4>
+                                    <p class="text-muted small">
+                                        No semesters, no credit hours, no HEC CGPA 4.0 calculations. Everything is tailored strictly for school grades (Class 1 to Matric / O-Levels).
+                                    </p>
+                                    <ul class="list-unstyled small text-secondary mt-3">
+                                        <li>✓ Classes &amp; Sections (not Courses &amp; Batches)</li>
+                                        <li>✓ Teachers &amp; Staff (not Faculty)</li>
+                                        <li>✓ Monthly billing (not semester billing)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Workflow Step-by-Step Banner -->
+                <section class="py-5 bg-light border-top border-bottom">
+                    <div class="container py-3">
+                        <div class="text-center mb-5">
+                            <span class="text-success fw-bold text-uppercase small tracking-wide">Simple &amp; Fast Setup</span>
+                            <h2 class="fw-bold text-dark mt-1">Get Your School Running in 3 Simple Steps</h2>
+                        </div>
+
+                        <div class="row g-4 text-center">
+                            <div class="col-md-4">
+                                <div class="p-4 bg-white rounded-3 border h-100">
+                                    <div class="badge bg-success rounded-circle p-3 fs-5 mb-3 text-white">1</div>
+                                    <h5 class="fw-bold text-dark">Register School Account</h5>
+                                    <p class="text-muted small mb-0">Create your admin account with your email and password in under 20 seconds.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-4 bg-white rounded-3 border h-100">
+                                    <div class="badge bg-success rounded-circle p-3 fs-5 mb-3 text-white">2</div>
+                                    <h5 class="fw-bold text-dark">Basic School Details</h5>
+                                    <p class="text-muted small mb-0">Enter your school name, campus city, phone, and academic year. Minimal onboarding.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-4 bg-white rounded-3 border h-100">
+                                    <div class="badge bg-success rounded-circle p-3 fs-5 mb-3 text-white">3</div>
+                                    <h5 class="fw-bold text-dark">Launch Dashboard</h5>
+                                    <p class="text-muted small mb-0">Instantly access admissions, fee challans, exams, and attendance from your clean dashboard.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5">
+                            <t t-if="not is_logged_in">
+                                <a href="/web/signup" class="ds-btn-primary fs-5 px-5 py-3">
+                                    <span>Get Started Now — It's Free</span> 🚀
+                                </a>
+                            </t>
+                            <t t-else="">
+                                <a href="/web" class="ds-btn-primary fs-5 px-5 py-3">
+                                    <span>Go Directly to ERP Dashboard</span> 🚀
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="py-4 bg-white text-muted small border-top">
+                    <div class="container d-flex flex-wrap align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-dark me-2">DARSENTRA ERP</span> &#8226; 
+                            <span class="ms-2">Pakistan's Localized K-12 School Management Suite</span>
+                        </div>
+                        <div class="d-flex gap-3 mt-2 mt-md-0">
+                            <a href="/web/login" class="text-muted text-decoration-none">Sign In</a>
+                            <a href="/web/signup" class="text-muted text-decoration-none">Register School</a>
+                            <a href="https://github.com/furqan-debug/Darsentra-ERP" target="_blank" class="text-muted text-decoration-none">GitHub Repository</a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </t>
+    </template>
+</odoo>

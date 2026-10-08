@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="school_onboarding" name="Darsentra School Setup Onboarding">
+        <t t-call="web.frontend_layout">
+            <t t-set="title">School Setup - Darsentra ERP</t>
+
+            <style>
+                .ds-onboarding-wrapper {
+                    min-height: 85vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #f8fafc;
+                    padding: 40px 15px;
+                }
+                .ds-onboarding-card {
+                    background: #ffffff;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 16px;
+                    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+                    max-width: 680px;
+                    width: 100%;
+                    padding: 36px;
+                }
+                .ds-form-label {
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    color: #1e293b;
+                    margin-bottom: 6px;
+                }
+                .ds-form-control {
+                    border: 1px solid #cbd5e1;
+                    border-radius: 8px;
+                    padding: 10px 14px;
+                    font-size: 0.95rem;
+                    width: 100%;
+                    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+                }
+                .ds-form-control:focus {
+                    border-color: #059669;
+                    outline: none;
+                    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+                }
+                .ds-submit-btn {
+                    background-color: #047857;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 8px;
+                    padding: 12px 24px;
+                    font-size: 1.05rem;
+                    font-weight: 600;
+                    width: 100%;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+                }
+                .ds-submit-btn:hover {
+                    background-color: #065f46;
+                    box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
+                }
+            </style>
+
+            <div class="ds-onboarding-wrapper">
+                <div class="ds-onboarding-card">
+                    <!-- Brand Header -->
+                    <div class="text-center mb-4">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle mb-2" style="width: 60px; height: 60px; font-size: 30px;">
+                            🏫
+                        </div>
+                        <h2 class="fw-bold text-dark mb-1">Set Up Your School</h2>
+                        <p class="text-muted small mb-0">
+                            Enter basic school details below. Once saved, you'll be redirected directly to your Darsentra ERP dashboard.
+                        </p>
+                    </div>
+
+                    <!-- Error Alert -->
+                    <t t-if="error">
+                        <div class="alert alert-danger py-2 px-3 small rounded-3 mb-4" role="alert">
+                            <span class="fw-bold">Notice:</span> <t t-esc="error"/>
+                        </div>
+                    </t>
+
+                    <!-- School Setup Form -->
+                    <form action="/school/onboarding" method="post" class="needs-validation">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <div class="row g-3 mb-3">
+                            <!-- School Name -->
+                            <div class="col-12">
+                                <label class="ds-form-label" for="school_name">
+                                    School / Institution Name <span class="text-danger">*</span>
+                                </label>
+                                <input type="text"
+                                       id="school_name"
+                                       name="school_name"
+                                       class="ds-form-control"
+                                       placeholder="e.g. The City Grammar High School"
+                                       t-att-value="(form_data and form_data.get('school_name')) or (company and company.name if company and company.name != 'My Company' else '')"
+                                       required="required"/>
+                                <div class="form-text text-muted" style="font-size: 0.75rem;">This name will appear on student result cards and fee challans.</div>
+                            </div>
+
+                            <!-- Campus City -->
+                            <div class="col-md-6">
+                                <label class="ds-form-label" for="school_city">
+                                    Campus / Branch City <span class="text-danger">*</span>
+                                </label>
+                                <input type="text"
+                                       id="school_city"
+                                       name="school_city"
+                                       class="ds-form-control"
+                                       placeholder="e.g. Lahore, Karachi, Rawalpindi"
+                                       t-att-value="(form_data and form_data.get('school_city')) or (company and company.school_campus_city) or 'Lahore'"
+                                       required="required"/>
+                            </div>
+
+                            <!-- Official Phone / WhatsApp -->
+                            <div class="col-md-6">
+                                <label class="ds-form-label" for="school_phone">
+                                    Official Contact / WhatsApp <span class="text-danger">*</span>
+                                </label>
+                                <input type="text"
+                                       id="school_phone"
+                                       name="school_phone"
+                                       class="ds-form-control"
+                                       placeholder="e.g. +92 300 1234567"
+                                       t-att-value="(form_data and form_data.get('school_phone')) or (company and company.phone) or ''"
+                                       required="required"/>
+                            </div>
+
+                            <!-- Academic Session -->
+                            <div class="col-md-6">
+                                <label class="ds-form-label" for="academic_session">
+                                    Current Academic Session
+                                </label>
+                                <input type="text"
+                                       id="academic_session"
+                                       name="academic_session"
+                                       class="ds-form-control"
+                                       placeholder="e.g. 2025-2026"
+                                       t-att-value="(form_data and form_data.get('academic_session')) or (company and company.academic_session) or '2025-2026'"/>
+                            </div>
+
+                            <!-- Affiliated Board -->
+                            <div class="col-md-6">
+                                <label class="ds-form-label" for="school_board">
+                                    Educational Board Affiliation
+                                </label>
+                                <select id="school_board" name="school_board" class="ds-form-control">
+                                    <option value="punjab" t-att-selected="(form_data and form_data.get('school_board') == 'punjab') or (company and company.school_board == 'punjab')">Punjab BISE (Lahore/Rwp/Fsd/Mul)</option>
+                                    <option value="federal" t-att-selected="(form_data and form_data.get('school_board') == 'federal') or (company and company.school_board == 'federal')">Federal Board (FBISE Islamabad)</option>
+                                    <option value="sindh" t-att-selected="(form_data and form_data.get('school_board') == 'sindh') or (company and company.school_board == 'sindh')">Sindh Board (Karachi/Hyd)</option>
+                                    <option value="kpk" t-att-selected="(form_data and form_data.get('school_board') == 'kpk') or (company and company.school_board == 'kpk')">KPK Board (Peshawar/Abbottabad)</option>
+                                    <option value="cambridge" t-att-selected="(form_data and form_data.get('school_board') == 'cambridge') or (company and company.school_board == 'cambridge')">Cambridge International (CAIE O/A)</option>
+                                    <option value="other" t-att-selected="(form_data and form_data.get('school_board') == 'other') or (company and company.school_board == 'other')">Other Independent Board</option>
+                                </select>
+                            </div>
+
+                            <!-- School Category -->
+                            <div class="col-12">
+                                <label class="ds-form-label" for="school_level">
+                                    School Category / Level
+                                </label>
+                                <select id="school_level" name="school_level" class="ds-form-control">
+                                    <option value="comprehensive" t-att-selected="(form_data and form_data.get('school_level') == 'comprehensive') or (company and company.school_level == 'comprehensive')">Comprehensive K-12 (Playgroup to Grade 10 / Matric / O-Levels)</option>
+                                    <option value="primary_middle" t-att-selected="(form_data and form_data.get('school_level') == 'primary_middle') or (company and company.school_level == 'primary_middle')">Primary &amp; Middle School (Playgroup - Grade 8)</option>
+                                    <option value="high_school" t-att-selected="(form_data and form_data.get('school_level') == 'high_school') or (company and company.school_level == 'high_school')">High School (Matric / SSC)</option>
+                                    <option value="cambridge" t-att-selected="(form_data and form_data.get('school_level') == 'cambridge') or (company and company.school_level == 'cambridge')">Cambridge System (O-Levels / A-Levels)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="mt-4">
+                            <button type="submit" class="ds-submit-btn">
+                                Complete Setup &amp; Open Dashboard 🚀
+                            </button>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <span class="text-muted small">You can always update these settings later from School Configuration.</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -9,6 +9,8 @@
     'depends': [
         'openeducat_core',
         'openeducat_admission',
+        'website',
+        'auth_signup',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -21,6 +23,8 @@
         'views/admission_views.xml',
         'views/school_certificate_views.xml',
         'views/school_menu_views.xml',
+        'views/landing_page_views.xml',
+        'views/school_onboarding_views.xml',
     ],
     'installable': True,
     'application': True,
