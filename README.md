@@ -1,4 +1,4 @@
-# Darsentra ERP 🏫
+# Darsentra ERP
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](LICENSE)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-furqan--debug%2FDarsentra--ERP-181717.svg?logo=github)](https://github.com/furqan-debug/Darsentra-ERP)
@@ -10,9 +10,9 @@ Repository: **[https://github.com/furqan-debug/Darsentra-ERP](https://github.com
 
 ---
 
-## 🌟 Core Pakistani School Features
+## Core Pakistani School Features
 
-### 1. 🪪 Student Profile & NADRA Localization (`darsentra_school_core`)
+### 1. Student Profile & NADRA Localization (`darsentra_school_core`)
 - **NADRA B-Form / CRC Validation**: Automated formatting (`XXXXX-XXXXXXX-X`) and 13-digit validation for minor students.
 - **Family Particulars**: Father & Mother CNIC, profession, and primary WhatsApp / Mobile contact for fee alerts and announcements.
 - **School Houses**: Pre-configured historical houses (*Jinnah House, Iqbal House, Liaquat House, Sir Syed House*).
@@ -22,14 +22,14 @@ Repository: **[https://github.com/furqan-debug/Darsentra-ERP](https://github.com
   - **Character & Conduct Certificate**
   - **Bonafide Student Certificate**
 
-### 2. 🧾 Monthly Fee Challan & Banking Engine (`darsentra_school_fees`)
+### 2. Monthly Fee Challan & Banking Engine (`darsentra_school_fees`)
 - **Bulk Monthly Fee Generator**: One-click fee generator wizard by Class and Section.
 - **Automated Sibling Discounts**: Automatic 10% discount for 2nd child and 20% for 3rd+ child matched by Father's CNIC / Mobile.
 - **1Link / Kuickpay Integration**: Auto-generated 12-digit Consumer ID per challan for ATM, Mobile Banking, and OTC payments.
 - **3-Part Bank Challan**: Standard printable slip containing Bank Copy, School Accounts Copy, and Parent Copy.
 - **Arrears & Late Fee Fines**: Carry-forward of unpaid balances and grace period late fee calculations.
 
-### 3. 🏆 Examination & Term Progress Report Cards (`darsentra_school_exam`)
+### 3. Examination & Term Progress Report Cards (`darsentra_school_exam`)
 - **Subject Marks System**: Maximum Marks, Passing Marks, and Marks Obtained.
 - **Class Ranking**: Automated calculation of class ranks (`1st Position 🏆`, `2nd Position 🥈`, `3rd Position 🥉`).
 - **Pakistani BISE Grade Scale**: Standard percentage-to-grade mapping (`A+ Outstanding`, `A Excellent`, `B Very Good`, `C Good`, `D Fair`, `E Pass`, `F Fail`).
@@ -37,7 +37,7 @@ Repository: **[https://github.com/furqan-debug/Darsentra-ERP](https://github.com
 
 ---
 
-## 🚀 Quick Start with Docker
+## Quick Start with Docker
 
 ```bash
 # Clone the repository
@@ -53,7 +53,7 @@ http://localhost:8069
 
 ---
 
-## 📁 Architecture & Module Structure
+## Architecture & Module Structure
 
 ```text
 ├── darsentra_school_core/     # NADRA B-Form, Parents, Houses, SLC & Character Certs
