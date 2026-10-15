@@ -4,6 +4,7 @@ Implements business rules for tenant resolution, creation, and authorization.
 """
 from django.db import transaction
 from django.db.models import QuerySet
+from django.utils.text import slugify
 from rest_framework.exceptions import PermissionDenied
 
 from .models import MembershipRole, School, SchoolMembership
@@ -54,7 +55,7 @@ class TenantSecurityService:
 
 class SchoolService:
     """
-    Service managing school tenant creation and memberships.
+    Service managing school tenant creation, onboarding, and memberships.
     """
 
     @staticmethod
@@ -77,26 +78,76 @@ class SchoolService:
 
     @staticmethod
     @transaction.atomic
-    def create_school_with_owner(
-        name: str,
-        code: str,
-        slug: str,
-        owner_user,
-        **extra_fields,
-    ) -> School:
+    def setup_new_school(owner_user, data: dict) -> School:
         """
-        Creates a new school tenant and assigns the creator as OWNER.
+        Atomic school onboarding wizard processor:
+        Creates the School tenant, attaches the owner membership,
+        initializes the active academic session, and seeds the class/section hierarchy.
         """
+        from apps.academics.models import AcademicClass, AcademicYear, Section
+
+        name = data["name"].strip()
+        code = data["code"].strip().upper()
+        slug = slugify(f"{name}-{code}")
+
         school = School.objects.create(
             name=name,
             code=code,
             slug=slug,
-            **extra_fields,
+            registration_number=data.get("registration_number", ""),
+            curriculum_type=data.get("curriculum_type", "matric_fsc"),
+            contact_email=data.get("contact_email", owner_user.email),
+            phone_number=data.get("phone_number", getattr(owner_user, "phone_number", "")),
+            address=data.get("address", ""),
+            city=data.get("city", "Islamabad"),
+            province=data.get("province", "islamabad"),
+            is_active=True,
         )
+
         SchoolMembership.objects.create(
             user=owner_user,
             school=school,
             role=MembershipRole.OWNER,
             is_active=True,
         )
+
+        # Create active Academic Year
+        academic_year_name = data.get("academic_year_name", "2026-2027")
+        AcademicYear.objects.create(
+            school=school,
+            name=academic_year_name,
+            is_current=True,
+        )
+
+        # Seed initial classes and default Section A
+        initial_classes = data.get("initial_classes", [])
+        if not initial_classes:
+            initial_classes = [
+                "Nursery",
+                "Prep",
+                "Class 1",
+                "Class 2",
+                "Class 3",
+                "Class 4",
+                "Class 5",
+                "Class 6",
+                "Class 7",
+                "Class 8",
+                "Class 9",
+                "Class 10",
+            ]
+
+        for idx, class_name in enumerate(initial_classes, start=1):
+            cls_obj = AcademicClass.objects.create(
+                school=school,
+                name=class_name,
+                order=idx,
+            )
+            Section.objects.create(
+                school=school,
+                academic_class=cls_obj,
+                name="Section A",
+                capacity=40,
+            )
+
         return school

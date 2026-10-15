@@ -11,13 +11,19 @@ export const apiClient: AxiosInstance = axios.create({
   timeout: 10000,
 });
 
-// Interceptor to inject optional tenant header if active tenant is selected
+// Interceptor to inject JWT token and active tenant header
 apiClient.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem("darsentra_access_token");
+    if (token && !config.headers["Authorization"]) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+
     const activeSchoolId = localStorage.getItem("darsentra_active_school_id");
     if (activeSchoolId && !config.headers["X-School-ID"]) {
       config.headers["X-School-ID"] = activeSchoolId;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -27,10 +33,19 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ApiResponse<unknown>>) => {
+    if (error.response?.status === 401) {
+      // Clear token if unauthorized on a protected endpoint
+      const isAuthEndpoint = error.config?.url?.includes("/accounts/token/");
+      if (!isAuthEndpoint) {
+        localStorage.removeItem("darsentra_access_token");
+        localStorage.removeItem("darsentra_refresh_token");
+      }
+    }
+
     if (error.response?.data) {
-      // Backend returned consistent error payload
       return Promise.reject(error.response.data);
     }
+
     return Promise.reject({
       status: "error",
       message: error.message || "Network error. Please verify backend connectivity.",

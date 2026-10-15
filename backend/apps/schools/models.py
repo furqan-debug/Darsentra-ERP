@@ -82,8 +82,21 @@ class School(TimeStampedModel):
         verbose_name_plural = "Schools"
         ordering = ["name"]
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            base_slug = slugify(f"{self.name}-{self.code}") if self.code else slugify(self.name)
+            slug = base_slug or "school"
+            counter = 1
+            while School.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
     def __str__(self) -> str:
         return f"{self.name} ({self.code})"
+
 
 
 class SchoolMembership(TimeStampedModel):

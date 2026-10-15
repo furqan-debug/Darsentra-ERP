@@ -53,3 +53,44 @@ class SchoolMembershipSerializer(serializers.ModelSerializer):
             "created_at",
         ]
         read_only_fields = ["id", "created_at"]
+
+
+class SchoolSetupSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the school setup / onboarding wizard.
+    """
+    initial_classes = serializers.ListField(
+        child=serializers.CharField(max_length=50),
+        required=False,
+        default=list,
+    )
+    academic_year_name = serializers.CharField(
+        max_length=50,
+        required=False,
+        default="2026-2027",
+    )
+
+    class Meta:
+        model = School
+        fields = [
+            "id",
+            "name",
+            "code",
+            "slug",
+            "registration_number",
+            "curriculum_type",
+            "contact_email",
+            "phone_number",
+            "address",
+            "city",
+            "province",
+            "initial_classes",
+            "academic_year_name",
+        ]
+        read_only_fields = ["id", "slug"]
+
+    def validate_code(self, value):
+        code = value.strip().upper()
+        if School.objects.filter(code=code).exists():
+            raise serializers.ValidationError("A school with this institutional code already exists.")
+        return code

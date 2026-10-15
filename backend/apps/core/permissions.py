@@ -2,7 +2,33 @@
 Base tenant and role-based permissions for Darsentra ERP.
 Enforces multi-tenant data isolation by verifying user memberships.
 """
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import BasePermission
+
+
+class TenantContextMixin:
+    """
+    Mixin for DRF views to automatically resolve and strictly validate
+    the active school tenant from request headers or active memberships.
+    """
+
+    def get_tenant_school(self):
+        from apps.schools.models import SchoolMembership
+        from apps.schools.services import TenantSecurityService
+
+        school_id = self.request.headers.get("X-School-ID")
+        if school_id:
+            return TenantSecurityService.validate_user_school_access(self.request.user, school_id)
+
+        membership = SchoolMembership.objects.filter(
+            user=self.request.user,
+            is_active=True,
+            school__is_active=True,
+        ).select_related("school").first()
+
+        if not membership:
+            raise PermissionDenied("You must belong to an active school to access this resource.")
+        return membership.school
 
 
 class IsSchoolMember(BasePermission):
@@ -16,18 +42,14 @@ class IsSchoolMember(BasePermission):
         if not request.user or not request.user.is_authenticated:
             return False
 
-        # Superusers have system-wide administrative access
         if request.user.is_superuser:
             return True
 
-        # Check if view provides get_school() or has school attribute
         school = getattr(view, "school", None)
         if callable(getattr(view, "get_school", None)):
             school = view.get_school()
 
         if school is None:
-            # If view doesn't explicitly bind to a single school,
-            # ensure user has at least one active school membership
             return request.user.school_memberships.filter(is_active=True).exists()
 
         return request.user.school_memberships.filter(school=school, is_active=True).exists()
@@ -39,7 +61,6 @@ class IsSchoolMember(BasePermission):
         if request.user.is_superuser:
             return True
 
-        # Determine target school from the object
         target_school = getattr(obj, "school", obj if hasattr(obj, "memberships") else None)
         if target_school is None:
             return False
