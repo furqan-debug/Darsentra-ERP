@@ -1,0 +1,7 @@
+# Copy this file to docker-compose.override.yml if you need local access to PostgreSQL
+# e.g., with pgAdmin, DBeaver, or psql from your host machine.
+
+services:
+  db:
+    ports:
+      - "127.0.0.1:5432:5432"
